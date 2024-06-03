@@ -14,8 +14,8 @@ def routine_lookup_place_sunflower(rows, cols, plantPattern, quantity):
 
   return plantPattern, sunflowerPositions
 
-def routine_lookup_harvest_sunflower(sunflowerPositions, totalSunFlowers):
-  if len (sunflowerPositions) == 0:
+def routine_lookup_harvest_sunflower(sunflowersPosition, totalSunFlowers):
+  if len (sunflowersPosition) == 0:
     return False
 
   sunFlowerPetals = []
@@ -23,7 +23,7 @@ def routine_lookup_harvest_sunflower(sunflowerPositions, totalSunFlowers):
 
   allCanHarvest = False
 
-  for sunflowerPosition in sunflowerPositions:
+  for sunflowerPosition in sunflowersPosition:
     y, x = sunflowerPosition
 
     go_to_position(y, x)
@@ -58,6 +58,7 @@ def routine_lookup_harvest_sunflower(sunflowerPositions, totalSunFlowers):
       sunFlowerPetals.pop(maxIndex)
       sunflowerPetalsPosition.pop(maxIndex)
 
+  routine_replant_sunflower(sunflowersPosition)
   return True
 
 def routine_replant_sunflower(sunflowerPositions):

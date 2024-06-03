@@ -6,4 +6,4 @@ rows = size
 cols = size
 
 while willStop == False:
-	willStop = culture_poly(rows, cols, 7, 7, 16, 16, 7, 7, 0)
+	willStop = culture_poly(rows, cols, 7, 7, 20, 20, 10, 14, 0)

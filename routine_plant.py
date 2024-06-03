@@ -1,4 +1,9 @@
 def routine_harvest_execute():
+  plant = get_entity_type()
+
+  if(plant == Entities.Sunflower or plant == Entities.Bush):
+    return
+
   if (can_harvest()):
     harvest()
 
@@ -20,6 +25,12 @@ def routine_plant_execute(entity = Entities.Grass):
 
   if canPlant:
     plant(entity)
+
+def routine_plant_fertilize():
+  use_item(Items.Water_Tank)
+  if (can_harvest()):
+    use_item(Items.Fertilizer)
+    use_item(Items.Water_Tank)
 
 def routine_plant_find_available_position(cols, rows, plantPattern):
   bestPositionX = -1
