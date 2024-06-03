@@ -2,7 +2,7 @@ from drone_functions import go_to_position
 from routine_plant import routine_harvest_execute, routine_soil_execute, routine_plant_execute, routine_plant_plan_execute
 from routine_resource import routine_get_carrot_seed, routine_get_pumpkin_seed, routine_get_tank, routine_get_sunflower
 from routine_lookup_place import routine_lookup_place_pumpkin
-from routine_lookup_sunflower import routine_lookup_place_sunflower, routine_lookup_harvest_sunflower
+from routine_lookup_sunflower import routine_lookup_place_sunflower, routine_lookup_harvest_sunflower, routine_replant_sunflower
 
 def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree = 0, sunflower = 0, cactus = 0):
 	if rows < 1 or columns < 1:
@@ -17,8 +17,6 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 	if (grass + bush + carrot + pumpkin + sunflower + cactus) > spaces:
 		print("Error: Not enough spaces for the plants.")
 		return
-
-	clear()
 
 	plantPattern = []
 
@@ -64,6 +62,7 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 		if positionFilled == spaces:
 			allSpacesFilled = True
 
+	go_to_position(0, 0)
 	for x in range(rows):
 			for y in range(columns):
 				droneXPos = get_pos_x()
@@ -97,6 +96,10 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 			routine_get_sunflower(12, 12)
 			routine_get_tank(100, 100)
 
-		routine_lookup_harvest_sunflower(sunflowerPositions)
+
+		do_a_flip()
+		do_a_flip()
+		routine_lookup_harvest_sunflower(sunflowerPositions, len(sunflowerPositions))
+		routine_replant_sunflower(sunflowerPositions)
 
 
