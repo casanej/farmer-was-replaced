@@ -29,6 +29,10 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 	allSpacesFilled = False
 	positionFilled = 0
 
+	routine_get_carrot_seed(carrot, carrot)
+	routine_get_pumpkin_seed(pumpkin, pumpkin)
+	routine_get_sunflower(sunflower, sunflower)
+
 	while not allSpacesFilled:
 		if pumpkin > 0:
 			plantPattern = routine_lookup_place_pumpkin(rows, columns, plantPattern, pumpkin)
@@ -55,10 +59,6 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 
 		if positionFilled == spaces:
 			allSpacesFilled = True
-
-	routine_get_carrot_seed(carrot, carrot)
-	routine_get_pumpkin_seed(pumpkin, pumpkin)
-	routine_get_sunflower(sunflower, sunflower)
 
 	for x in range(rows):
 			for y in range(columns):

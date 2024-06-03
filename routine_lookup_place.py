@@ -1,31 +1,93 @@
 def routine_lookup_place_pumpkin(rows, cols, plantPattern, quantity):
-  highPumpkinSquare = 0
+  loopIteration = 0
+  lastSquareSize = 0
+  restPumpkin = quantity
 
-  for y in range(cols):
-    if y == 0:
-      continue
+  while restPumpkin >= 4:
+    pumpkinSquare = 0
+    for y in range(cols):
+      if (y == 0 or y == 1):
+        continue
 
-    if (y * y) > quantity:
-      break
+      if (y * y) > restPumpkin:
+        break
 
-    highPumpkinSquare = y
+      pumpkinSquare = y
 
-  restPumpkin = quantity - (highPumpkinSquare * highPumpkinSquare)
+    restPumpkin -= pumpkinSquare * pumpkinSquare
 
+    if loopIteration == 0:
+      plantPattern = lookup_pumpkin_first_square(pumpkinSquare, plantPattern)
+      lastSquareSize = pumpkinSquare
+    elif loopIteration == 1:
+      plantPattern = lookup_pumpkin_second_square(plantPattern, cols, rows, lastSquareSize, pumpkinSquare)
+    else:
+      plantPattern = lookup_pumpkin_search_square(plantPattern, cols, rows, pumpkinSquare)
+
+    loopIteration += 1
+
+
+  plantPattern = lookup_pumpkin_add_anywhere(plantPattern, cols, rows, restPumpkin)
+
+  return plantPattern
+
+def lookup_pumpkin_first_square(highPumpkinSquare, plantPattern):
   for y in range(highPumpkinSquare):
     for x in range(highPumpkinSquare):
       plantPattern[y][x] = Entities.Pumpkin
 
+  return plantPattern
+
+def lookup_pumpkin_second_square(plantPattern, cols, rows, lastSquareSize, squareSize):
+  if lastSquareSize + squareSize > cols or lastSquareSize + squareSize > rows:
+    return lookup_pumpkin_search_square(plantPattern, cols, rows, squareSize)
+
+  for y in range(squareSize):
+    for x in range(lastSquareSize, lastSquareSize + squareSize):
+      plantPattern[y][x] = Entities.Pumpkin
+
+  return plantPattern
+
+def lookup_pumpkin_search_square(plantPattern, cols, rows, squareSize):
+  posSquareXAvailable = -1
+  posSquareYAvailable = -1
+  wasFound = False
+
   for y in range(cols):
     for x in range(rows):
-      if restPumpkin == 0:
+      if plantPattern[y][x] == None:
+        if x + squareSize > rows or y + squareSize > cols:
+          continue
+
+        posSquareXAvailable = x
+        posSquareYAvailable = y
+        wasFound = True
+        break
+
+    if wasFound:
+      break
+
+  if posSquareXAvailable == -1:
+    return lookup_pumpkin_add_anywhere(plantPattern, cols, rows, squareSize * squareSize)
+
+  quick_print("Best Position:", posSquareYAvailable, posSquareXAvailable)
+
+  for y in range(squareSize):
+    for x in range(squareSize):
+      plantPattern[y + posSquareYAvailable][x + posSquareXAvailable] = Entities.Pumpkin
+
+  return plantPattern
+
+def lookup_pumpkin_add_anywhere(plantPattern, cols, rows, quantity):
+  for y in range(cols):
+    for x in range(rows):
+      if quantity == 0:
         break
 
       canPlace = plantPattern[y][x] == None
 
       if canPlace:
         plantPattern[y][x] = Entities.Pumpkin
-        restPumpkin -= 1
-        continue
+        quantity -= 1
 
   return plantPattern
