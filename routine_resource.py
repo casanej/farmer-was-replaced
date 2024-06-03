@@ -17,7 +17,20 @@ def routine_get_sunflower(minQuantity=4, buyAmount=4):
 		trade(Items.Sunflower_Seed, buyAmount)
 
 def routine_get_tank(minQuantity=100, buyAmount=5):
-		if num_items(Items.Empty_Tank) <= minQuantity:
-			trade(Items.Empty_Tank, buyAmount)
-		else:
-			pass
+	if num_items(Items.Water_Tank) >= minQuantity:
+		pass
+
+	if num_items(Items.Empty_Tank) <= minQuantity:
+		trade(Items.Empty_Tank, buyAmount)
+	else:
+		pass
+
+def routine_get_fertilizer(minQuantity=100, buyAmount=5):
+	if (num_items(Items.Pumpkin) < buyAmount * 10):
+		print("ERROR: Not enough pumpkins to trade for fertilizer")
+		pass
+
+	if num_items(Items.Fertilizer) <= minQuantity:
+		trade(Items.Fertilizer, buyAmount)
+	else:
+		pass

@@ -30,7 +30,7 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 
 	while not allSpacesFilled:
 		if pumpkin > 0:
-			plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Pumpkin)
+			plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Pumpkin, pumpkin % 2 == 0)
 			pumpkin -= 1
 		elif tree > 0:
 			plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Tree)
