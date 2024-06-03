@@ -1,5 +1,6 @@
 from routine_plant import routine_harvest_execute, routine_soil_execute, routine_plant_execute, routine_plant_plan_execute
 from routine_resource import routine_get_carrot_seed, routine_get_pumpkin_seed, routine_get_tank, routine_get_sunflower
+from routine_lookup_place import routine_lookup_place_pumpkin
 
 def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree = 0, sunflower = 0, cactus = 0):
 	if rows < 1 or columns < 1:
@@ -30,8 +31,8 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 
 	while not allSpacesFilled:
 		if pumpkin > 0:
-			plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Pumpkin, pumpkin % 2 == 0)
-			pumpkin -= 1
+			plantPattern = routine_lookup_place_pumpkin(rows, columns, plantPattern, pumpkin)
+			pumpkin -= pumpkin
 		elif tree > 0:
 			plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Tree)
 			tree -= 1

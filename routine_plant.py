@@ -25,9 +25,9 @@ def routine_plant_execute(entity = Entities.Grass):
     else:
       print("Cannot plant on this ground type")
 
-def routine_plant_plan_execute(cols, rows, plantPattern, entity, isOdd = False):
-  bestPositionX = 0
-  bestPositionY = 0
+def routine_plant_plan_execute(cols, rows, plantPattern, entity):
+  bestPositionX = -1
+  bestPositionY = -1
   bestPositionScore = -1
 
   for initialBestY in range(cols):
@@ -38,7 +38,7 @@ def routine_plant_plan_execute(cols, rows, plantPattern, entity, isOdd = False):
         bestPositionScore = 0
         break
 
-  if (entity == Entities.Pumpkin or entity == Entities.Tree):
+  if (entity == Entities.Tree):
     for lookupBestY in range(cols):
       for lookupBestX in range(rows):
 
@@ -66,38 +66,23 @@ def routine_plant_plan_execute(cols, rows, plantPattern, entity, isOdd = False):
 
         bestPositionLocalScore = 0
 
-        if (entity == Entities.Pumpkin):
-          if posUp == Entities.Pumpkin:
-            if isOdd:
-              bestPositionLocalScore += 10
-            else:
-              bestPositionLocalScore += 1
-          if posRight == Entities.Pumpkin:
-            bestPositionLocalScore += 1
-          if posDown == Entities.Pumpkin:
-            bestPositionLocalScore += 1
-          if posLeft == Entities.Pumpkin:
-            if isOdd:
-              bestPositionLocalScore += 1
-            else:
-              bestPositionLocalScore += 10
-
-        elif (entity == Entities.Tree):
-          if posUp != Entities.Tree:
-            bestPositionLocalScore += 1
-          if posRight != Entities.Tree:
-            bestPositionLocalScore += 1
-          if posDown != Entities.Tree:
-            bestPositionLocalScore += 1
-          if posLeft != Entities.Tree:
-            bestPositionLocalScore += 1
+        if posUp != Entities.Tree:
+          bestPositionLocalScore += 1
+        if posRight != Entities.Tree:
+          bestPositionLocalScore += 1
+        if posDown != Entities.Tree:
+          bestPositionLocalScore += 1
+        if posLeft != Entities.Tree:
+          bestPositionLocalScore += 1
 
         if (bestPositionLocalScore > bestPositionScore) and canPlace == True:
           bestPositionScore = bestPositionLocalScore
           bestPositionY = lookupBestY
           bestPositionX = lookupBestX
 
-  plantPattern[bestPositionY][bestPositionX] = entity
+
+  if (bestPositionY >= 0 and bestPositionX >= 0):
+    plantPattern[bestPositionY][bestPositionX] = entity
 
   return plantPattern
 
