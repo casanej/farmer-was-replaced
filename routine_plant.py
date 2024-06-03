@@ -1,34 +1,29 @@
-def routine_harvest_execute(entity = Entities.Grass):
-
+def routine_harvest_execute():
   if (can_harvest()):
     harvest()
-    plant(entity)
-  else:
-    if (get_entity_type() == None):
-      plant(entity)
 
 def routine_soil_execute(entity = Entities.Grass):
-  if (get_entity_type() != None):
-    harvest()
-
   if (entity == Entities.Pumpkin or entity == Entities.Carrots or entity == Entities.Sunflower):
     if get_ground_type() == Grounds.Turf:
       till()
 
 def routine_plant_execute(entity = Entities.Grass):
-  if (get_entity_type() != None):
-    harvest()
+  canPlant = False
+
+  if get_entity_type() == None:
+    canPlant = True
 
   if (entity == Entities.Pumpkin or entity == Entities.Carrots or entity == Entities.Sunflower):
-    if get_ground_type() != Grounds.Turf:
-      plant(entity)
-    else:
+    if get_ground_type() == Grounds.Turf:
+      canPlant = False
       print("Cannot plant on this ground type")
 
-def routine_plant_plan_execute(cols, rows, plantPattern, entity):
+  if canPlant:
+    plant(entity)
+
+def routine_plant_find_available_position(cols, rows, plantPattern):
   bestPositionX = -1
   bestPositionY = -1
-  bestPositionScore = -1
   hasFoundBestPosition = False
 
   for initialBestY in range(cols):
@@ -36,12 +31,18 @@ def routine_plant_plan_execute(cols, rows, plantPattern, entity):
       if plantPattern[initialBestY][initialBestX] == None:
         bestPositionX = initialBestX
         bestPositionY = initialBestY
-        bestPositionScore = 0
         hasFoundBestPosition = True
         break
 
     if hasFoundBestPosition:
       break
+
+  return bestPositionY, bestPositionX
+
+def routine_plant_plan_execute(cols, rows, plantPattern, entity):
+  bestPositionScore = -1
+
+  bestPositionY, bestPositionX = routine_plant_find_available_position(cols, rows, plantPattern)
 
   if (entity == Entities.Tree):
     for lookupBestY in range(cols):

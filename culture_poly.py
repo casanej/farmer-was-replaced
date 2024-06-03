@@ -1,6 +1,7 @@
 from routine_plant import routine_harvest_execute, routine_soil_execute, routine_plant_execute, routine_plant_plan_execute
 from routine_resource import routine_get_carrot_seed, routine_get_pumpkin_seed, routine_get_tank, routine_get_sunflower
 from routine_lookup_place import routine_lookup_place_pumpkin
+from routine_lookup_sunflower import routine_lookup_place_sunflower, routine_lookup_harvest_sunflower
 
 def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree = 0, sunflower = 0, cactus = 0):
 	if rows < 1 or columns < 1:
@@ -28,6 +29,7 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 
 	allSpacesFilled = False
 	positionFilled = 0
+	sunflowerPosition = []
 
 	routine_get_carrot_seed(carrot, carrot)
 	routine_get_pumpkin_seed(pumpkin, pumpkin)
@@ -40,15 +42,16 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 		elif tree > 0:
 			plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Tree)
 			tree -= 1
+		elif sunflower > 0:
+			newPlantPattern, sunflowerPosition = routine_lookup_place_sunflower(rows, columns, plantPattern, sunflower)
+			plantPattern = newPlantPattern
+			sunflower -= sunflower
 		elif bush > 0:
 			plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Bush)
 			bush -= 1
 		elif carrot > 0:
 			plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Carrots)
 			carrot -= 1
-		elif sunflower > 0:
-			plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Sunflower)
-			sunflower -= 1
 		elif cactus > 0:
 			plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Cactus)
 			cactus -= 1
@@ -68,7 +71,6 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 				plant = plantPattern[droneYPos][droneXPos]
 
 				routine_soil_execute(plant)
-				routine_plant_execute(plant)
 
 				move(North)
 			move(East)
@@ -81,7 +83,10 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 
 				plant = plantPattern[droneYPos][droneXPos]
 
-				routine_harvest_execute(plant)
+				if (plant != Entities.Sunflower):
+					routine_harvest_execute()
+
+				routine_plant_execute(plant)
 
 				move(North)
 			move(East)
@@ -90,5 +95,6 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 			routine_get_sunflower(12, 12)
 			routine_get_tank(100, 100)
 
+		routine_lookup_harvest_sunflower(sunflowerPosition)
 
 

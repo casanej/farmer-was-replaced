@@ -18,12 +18,12 @@ def routine_get_sunflower(minQuantity=4, buyAmount=4):
 
 def routine_get_tank(minQuantity=100, buyAmount=5):
 	if num_items(Items.Water_Tank) >= minQuantity:
-		pass
+		return False
 
 	if num_items(Items.Empty_Tank) <= minQuantity:
 		trade(Items.Empty_Tank, buyAmount)
-	else:
-		pass
+
+	return True
 
 def routine_get_fertilizer(minQuantity=100, buyAmount=5):
 	if (num_items(Items.Pumpkin) < buyAmount * 10):
