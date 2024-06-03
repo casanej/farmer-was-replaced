@@ -29,6 +29,7 @@ def routine_plant_plan_execute(cols, rows, plantPattern, entity):
   bestPositionX = -1
   bestPositionY = -1
   bestPositionScore = -1
+  hasFoundBestPosition = False
 
   for initialBestY in range(cols):
     for initialBestX in range(rows):
@@ -36,7 +37,11 @@ def routine_plant_plan_execute(cols, rows, plantPattern, entity):
         bestPositionX = initialBestX
         bestPositionY = initialBestY
         bestPositionScore = 0
+        hasFoundBestPosition = True
         break
+
+    if hasFoundBestPosition:
+      break
 
   if (entity == Entities.Tree):
     for lookupBestY in range(cols):
