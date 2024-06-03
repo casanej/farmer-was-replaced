@@ -96,7 +96,7 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 			routine_get_sunflower(12, 12)
 			routine_get_tank(100, 100)
 
-
+		go_to_position(7, 7)
 		do_a_flip()
 		do_a_flip()
 		routine_lookup_harvest_sunflower(sunflowerPositions, len(sunflowerPositions))
