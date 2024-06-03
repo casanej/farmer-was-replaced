@@ -1,17 +1,24 @@
 def go_to_position(y, x):
-  dronePosX = get_pos_x()
-  dronePosY = get_pos_y()
+  isDroneAtPosition = False
 
-  if dronePosX < x:
-    for e in range(x - dronePosX):
-      move(East)
-  elif dronePosX > x:
-    for w in range(dronePosX - x):
-      move(West)
+  while not isDroneAtPosition:
+    dronePosX = get_pos_x()
+    dronePosY = get_pos_y()
 
-  if dronePosY < y:
-    for s in range(y - dronePosY):
-      move(South)
-  elif dronePosY > y:
-    for n in range(dronePosY - y):
-      move(North)
+    while not dronePosX == x:
+      if dronePosX < x:
+        move(East)
+      elif dronePosX > x:
+        move(West)
+
+      dronePosX = get_pos_x()
+
+    while not dronePosY == y:
+      if dronePosY > y:
+        move(South)
+      elif dronePosY < y:
+        move(North)
+
+      dronePosY = get_pos_y()
+
+    isDroneAtPosition = dronePosX == x and dronePosY == y

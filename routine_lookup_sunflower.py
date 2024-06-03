@@ -24,12 +24,14 @@ def routine_lookup_harvest_sunflower(sunflowerPositions):
   for sunflowerPosition in sunflowerPositions:
     y, x = sunflowerPosition
 
+    quick_print("ENTROU AQUI 1: ", y, x)
     go_to_position(y, x)
 
-    if can_harvest():
-      petals = measure()
-      sunFlowerPetals.append(petals)
-      sunflowerPetalsPosition.append((y, x))
+    if get_entity_type() == Entities.Sunflower:
+      if can_harvest():
+        petals = measure()
+        sunFlowerPetals.append(petals)
+        sunflowerPetalsPosition.append((y, x))
 
   while len(sunFlowerPetals) != 0:
     maxPetals = max(sunFlowerPetals)
@@ -43,6 +45,8 @@ def routine_lookup_harvest_sunflower(sunflowerPositions):
 
     if maxIndex >= 0:
       y, x = sunflowerPetalsPosition[maxIndex]
+
+      quick_print("Harvesting sunflower at position: ", y, x)
 
       go_to_position(y, x)
       routine_harvest_execute()

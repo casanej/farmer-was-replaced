@@ -3,7 +3,7 @@ def routine_harvest_execute():
     harvest()
 
 def routine_soil_execute(entity = Entities.Grass):
-  if (entity == Entities.Pumpkin or entity == Entities.Carrots or entity == Entities.Sunflower):
+  if (entity == Entities.Bush or entity == Entities.Tree or entity == Entities.Pumpkin or entity == Entities.Carrots or entity == Entities.Sunflower):
     if get_ground_type() == Grounds.Turf:
       till()
 
@@ -85,7 +85,6 @@ def routine_plant_plan_execute(cols, rows, plantPattern, entity):
           bestPositionScore = bestPositionLocalScore
           bestPositionY = lookupBestY
           bestPositionX = lookupBestX
-
 
   if (bestPositionY >= 0 and bestPositionX >= 0):
     plantPattern[bestPositionY][bestPositionX] = entity
