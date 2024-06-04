@@ -1,6 +1,6 @@
 from drone_functions import go_to_position
 from routine_plant import routine_harvest_execute, routine_soil_execute, routine_plant_execute, routine_plant_plan_execute
-from routine_resource import routine_get_carrot_seed, routine_get_pumpkin_seed, routine_get_tank, routine_get_sunflower, routine_get_fertilizer
+from routine_resource import routine_get_carrot_seed, routine_get_pumpkin_seed, routine_get_tank, routine_get_sunflower
 from routine_lookup_place import routine_lookup_place_pumpkin
 from routine_lookup_bush import routine_lookup_place_bush, routine_lookup_fertilize_bush
 from routine_lookup_sunflower import routine_lookup_place_sunflower, routine_lookup_harvest_sunflower
@@ -30,11 +30,14 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 	allSpacesFilled = False
 	positionFilled = 0
 	sunflowersPosition = []
-	bushesPosition = []
 
-	routine_get_carrot_seed(carrot, carrot)
-	routine_get_pumpkin_seed(pumpkin, pumpkin)
-	routine_get_sunflower(sunflower, sunflower)
+	seedsCarrot = max(0, carrot)
+	seedsPumpkin = max(0, pumpkin)
+	seedsSunflower = max(0, sunflower)
+
+	routine_get_carrot_seed(seedsCarrot, seedsCarrot)
+	routine_get_pumpkin_seed(seedsPumpkin, seedsPumpkin)
+	routine_get_sunflower(seedsSunflower, seedsSunflower)
 
 	while not allSpacesFilled:
 		if pumpkin > 0:
@@ -44,8 +47,8 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 			plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Tree)
 			tree -= 1
 		elif bush > 0:
-			newPlantPattern, bushesPosition = routine_lookup_place_bush(rows, columns, plantPattern, bush)
-			bush -= bush
+			plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Bush)
+			bush -= 1
 		elif carrot > 0:
 			plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Carrots)
 			carrot -= 1
@@ -93,14 +96,10 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 				move(North)
 			move(East)
 
-		routine_get_carrot_seed(12, 12)
-		routine_get_pumpkin_seed(12, 12)
-		routine_get_sunflower(12, 12)
+		routine_get_carrot_seed(seedsCarrot, seedsCarrot)
+		routine_get_pumpkin_seed(seedsPumpkin, seedsPumpkin)
+		routine_get_sunflower(seedsSunflower, seedsSunflower)
 		routine_get_tank(100, 100)
-		routine_get_fertilizer(100, 100)
 		go_to_position(7, 7)
-		do_a_flip()
-		do_a_flip()
-		routine_lookup_harvest_sunflower(sunflowersPosition, len(sunflowersPosition))
-		routine_lookup_fertilize_bush(bushesPosition)
+		routine_lookup_harvest_sunflower(sunflowersPosition)
 

@@ -14,14 +14,12 @@ def routine_lookup_place_sunflower(rows, cols, plantPattern, quantity):
 
   return plantPattern, sunflowerPositions
 
-def routine_lookup_harvest_sunflower(sunflowersPosition, totalSunFlowers):
+def routine_lookup_harvest_sunflower(sunflowersPosition):
   if len (sunflowersPosition) == 0:
     return False
 
   sunFlowerPetals = []
   sunflowerPetalsPosition = []
-
-  allCanHarvest = False
 
   for sunflowerPosition in sunflowersPosition:
     y, x = sunflowerPosition
@@ -29,15 +27,9 @@ def routine_lookup_harvest_sunflower(sunflowersPosition, totalSunFlowers):
     go_to_position(y, x)
 
     if get_entity_type() == Entities.Sunflower:
-      if can_harvest():
-        petals = measure()
-        sunFlowerPetals.append(petals)
-        sunflowerPetalsPosition.append((y, x))
-
-  allCanHarvest = len(sunFlowerPetals) == totalSunFlowers
-
-  if not allCanHarvest:
-    return False
+      petals = measure()
+      sunFlowerPetals.append(petals)
+      sunflowerPetalsPosition.append((y, x))
 
   while len(sunFlowerPetals) != 0:
     maxPetals = max(sunFlowerPetals)
@@ -53,7 +45,7 @@ def routine_lookup_harvest_sunflower(sunflowersPosition, totalSunFlowers):
       y, x = sunflowerPetalsPosition[maxIndex]
 
       go_to_position(y, x)
-      routine_harvest_execute()
+      routine_harvest_execute(False)
 
       sunFlowerPetals.pop(maxIndex)
       sunflowerPetalsPosition.pop(maxIndex)

@@ -1,8 +1,15 @@
-def routine_harvest_execute():
-  plant = get_entity_type()
+def routine_harvest_execute(block = True):
 
-  if(plant == Entities.Sunflower or plant == Entities.Bush):
-    return
+  if block:
+    plant = get_entity_type()
+
+    if(plant == Entities.Sunflower):
+      return
+
+  waterLevel = get_water()
+
+  if (waterLevel < 0.5):
+    use_item(Items.Water_Tank)
 
   if (can_harvest()):
     harvest()
