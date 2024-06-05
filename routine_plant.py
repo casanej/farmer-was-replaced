@@ -6,10 +6,7 @@ def routine_harvest_execute(block = True):
     if(plant == Entities.Sunflower):
       return
 
-  waterLevel = get_water()
-
-  if (waterLevel < 0.5):
-    use_item(Items.Water_Tank)
+  routine_plant_watering()
 
   if (can_harvest()):
     harvest()
@@ -32,6 +29,12 @@ def routine_plant_execute(entity = Entities.Grass):
 
   if canPlant:
     plant(entity)
+
+def routine_plant_watering():
+  waterLevel = get_water()
+
+  if (waterLevel < 0.5):
+    use_item(Items.Water_Tank)
 
 def routine_plant_fertilize():
   use_item(Items.Water_Tank)
@@ -108,6 +111,3 @@ def routine_plant_plan_execute(cols, rows, plantPattern, entity):
     plantPattern[bestPositionY][bestPositionX] = entity
 
   return plantPattern
-
-
-
