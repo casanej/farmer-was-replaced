@@ -13,5 +13,5 @@ while willStop == False:
 	pumpkin = 24
 	tree = 10
 	sunflower = 32
-	cactus = 0
+	cactus = 5
 	willStop = culture_poly(rows, cols, grass, bush, carrot, pumpkin, tree, sunflower, cactus)
