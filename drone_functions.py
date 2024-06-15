@@ -30,8 +30,6 @@ def go_to_position_swapping(y, x):
     dronePosX = get_pos_x()
     dronePosY = get_pos_y()
 
-    quick_print("Going to position: ", y, x, dronePosY, dronePosX)
-
     while not dronePosX == x:
       if dronePosX < x:
         swap(East)

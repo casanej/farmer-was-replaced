@@ -1,7 +1,8 @@
+from routine_lookup_tree import routine_lookup_place_tree
 from routine_lookup_place import routine_lookup_place_pumpkin
 from routine_lookup_cactus import routine_lookup_place_cactus
 from routine_lookup_sunflower import routine_lookup_place_sunflower
-from routine_plant import routine_plant_plan_execute, routine_soil_execute, routine_plant_watering
+from routine_plant import routine_plant_plant_execute, routine_soil_execute, routine_plant_watering
 
 def routine_plant_pattern(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree = 0, sunflower = 0, cactus = 0):
   spaces = rows * columns
@@ -30,9 +31,9 @@ def routine_plant_pattern(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=
 
   allSpacesFilled = False
 
-  for x in range(rows):
+  for y in range(columns):
     plantRow = []
-    for y in range(columns):
+    for x in range(rows):
       plantRow.append(None)
     plantPattern.append(plantRow)
 
@@ -45,20 +46,21 @@ def routine_plant_pattern(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=
       plantPattern = newPlantPattern
       cactus -= cactus
     elif tree > 0:
-      plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Tree)
-      tree -= 1
+      newPlantPattern = routine_lookup_place_tree(rows, columns, plantPattern, tree)
+      plantPattern = newPlantPattern
+      tree -= tree
     elif bush > 0:
-      plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Bush)
+      plantPattern = routine_plant_plant_execute(rows, columns, plantPattern, Entities.Bush)
       bush -= 1
     elif carrot > 0:
-      plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Carrots)
+      plantPattern = routine_plant_plant_execute(rows, columns, plantPattern, Entities.Carrots)
       carrot -= 1
     elif sunflower > 0:
       newPlantPattern, sunflowersPosition = routine_lookup_place_sunflower(rows, columns, plantPattern, sunflower)
       plantPattern = newPlantPattern
       sunflower -= sunflower
     else:
-      plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Grass)
+      plantPattern = routine_plant_plant_execute(rows, columns, plantPattern, Entities.Grass)
 
     positionFilled += 1
 

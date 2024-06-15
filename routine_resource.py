@@ -2,22 +2,16 @@ def routine_get_carrot_seed(minQuantity=4, buyAmount=4):
 	if num_items(Items.Carrot_Seed) <= minQuantity:
 		if num_items(Items.Wood) >= buyAmount and num_items(Items.Hay) >= buyAmount:
 			trade(Items.Carrot_Seed, buyAmount)
-		else:
-			pass
 
 def routine_get_cactus_seed(minQuantity=4, buyAmount=4):
-	if num_items(Items.Carrot_Seed) <= minQuantity:
-		if num_items(Items.Gold) >= buyAmount * 9:
+	if num_items(Items.Cactus_Seed) <= minQuantity:
+		if num_items(Items.Gold) >= buyAmount * 10:
 			trade(Items.Cactus_Seed, buyAmount)
-		else:
-			pass
 
 def routine_get_pumpkin_seed(minQuantity=4, buyAmount=4):
 	if num_items(Items.Pumpkin_Seed) <= minQuantity:
 		if num_items(Items.Carrot) >= buyAmount:
 			trade(Items.Pumpkin_Seed, buyAmount)
-		else:
-			pass
 
 def routine_get_sunflower(minQuantity=4, buyAmount=4):
 	if num_items(Items.Sunflower_Seed) <= minQuantity:
@@ -25,12 +19,8 @@ def routine_get_sunflower(minQuantity=4, buyAmount=4):
 
 def routine_get_tank(minQuantity=100, buyAmount=5):
 	if num_items(Items.Water_Tank) >= minQuantity:
-		return False
-
-	if num_items(Items.Empty_Tank) <= minQuantity:
-		trade(Items.Empty_Tank, buyAmount)
-
-	return True
+		if num_items(Items.Empty_Tank) <= minQuantity:
+			trade(Items.Empty_Tank, buyAmount)
 
 def routine_get_fertilizer(minQuantity=100, buyAmount=5):
 	if (num_items(Items.Pumpkin) < buyAmount * 10):
@@ -39,5 +29,3 @@ def routine_get_fertilizer(minQuantity=100, buyAmount=5):
 
 	if num_items(Items.Fertilizer) <= minQuantity:
 		trade(Items.Fertilizer, buyAmount)
-	else:
-		pass

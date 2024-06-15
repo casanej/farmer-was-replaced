@@ -60,52 +60,8 @@ def routine_plant_find_available_position(cols, rows, plantPattern):
 
   return bestPositionY, bestPositionX
 
-def routine_plant_plan_execute(cols, rows, plantPattern, entity):
-  bestPositionScore = -1
-
+def routine_plant_plant_execute(cols, rows, plantPattern, entity):
   bestPositionY, bestPositionX = routine_plant_find_available_position(cols, rows, plantPattern)
-
-  if (entity == Entities.Tree):
-    for lookupBestY in range(cols):
-      for lookupBestX in range(rows):
-
-        canPlace = plantPattern[lookupBestY][lookupBestX] == None
-
-        if (lookupBestX + 1 < rows):
-          posRight = plantPattern[lookupBestY][lookupBestX+1]
-        else:
-          posRight = None
-
-        if (lookupBestX - 1 >= 0):
-          posLeft = plantPattern[lookupBestY][lookupBestX-1]
-        else:
-          posLeft = None
-
-        if (lookupBestY + 1 < cols):
-          posUp = plantPattern[lookupBestY+1][lookupBestX]
-        else:
-          posUp = None
-
-        if (lookupBestY - 1 >= 0):
-          posDown = plantPattern[lookupBestY-1][lookupBestX]
-        else:
-          posDown = None
-
-        bestPositionLocalScore = 0
-
-        if posUp != Entities.Tree:
-          bestPositionLocalScore += 1
-        if posRight != Entities.Tree:
-          bestPositionLocalScore += 1
-        if posDown != Entities.Tree:
-          bestPositionLocalScore += 1
-        if posLeft != Entities.Tree:
-          bestPositionLocalScore += 1
-
-        if (bestPositionLocalScore > bestPositionScore) and canPlace == True:
-          bestPositionScore = bestPositionLocalScore
-          bestPositionY = lookupBestY
-          bestPositionX = lookupBestX
 
   if (bestPositionY >= 0 and bestPositionX >= 0):
     plantPattern[bestPositionY][bestPositionX] = entity
