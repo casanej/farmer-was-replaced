@@ -4,6 +4,9 @@ from routine_plant import routine_plant_find_available_position, routine_harvest
 def routine_lookup_place_sunflower(rows, cols, plantPattern, quantity):
   sunflowerPositions = []
 
+  if quantity <= 0:
+    return plantPattern, sunflowerPositions
+
   while quantity > 0:
     bestPositionY, bestPositionX = routine_plant_find_available_position(cols, rows, plantPattern)
 

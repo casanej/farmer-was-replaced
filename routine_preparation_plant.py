@@ -1,4 +1,5 @@
 from routine_lookup_place import routine_lookup_place_pumpkin
+from routine_lookup_cactus import routine_lookup_place_cactus
 from routine_lookup_sunflower import routine_lookup_place_sunflower
 from routine_plant import routine_plant_plan_execute, routine_soil_execute, routine_plant_watering
 
@@ -6,15 +7,22 @@ def routine_plant_pattern(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=
   spaces = rows * columns
 
   if grass == 0 and bush == 0 and carrot == 0 and pumpkin == 0 and sunflower == 0 and cactus == 0:
+    print("Error: Must have at least one plant.")
     return [], [], 0, 0, 0
 
   if (grass + bush + carrot + pumpkin + sunflower + cactus) > spaces:
     print("Error: Not enough spaces for the plants.")
     return [], [], 0, 0, 0
 
+  if cactus > 0:
+    if cactus != 5:
+      print("Error: Cactus quantity must be 5.")
+      return [], [], 0, 0, 0
+
   seedsCarrot = max(0, carrot)
   seedsPumpkin = max(0, pumpkin)
   seedsSunflower = max(0, sunflower)
+  seedsCactus = max(0, cactus)
 
   plantPattern = []
   sunflowersPosition = []
@@ -32,6 +40,10 @@ def routine_plant_pattern(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=
     if pumpkin > 0:
       plantPattern = routine_lookup_place_pumpkin(rows, columns, plantPattern, pumpkin)
       pumpkin -= pumpkin
+    elif cactus > 0:
+      newPlantPattern, cactusPosition, cactusCompass = routine_lookup_place_cactus(rows, columns, plantPattern, cactus)
+      plantPattern = newPlantPattern
+      cactus -= cactus
     elif tree > 0:
       plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Tree)
       tree -= 1
@@ -41,9 +53,6 @@ def routine_plant_pattern(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=
     elif carrot > 0:
       plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Carrots)
       carrot -= 1
-    elif cactus > 0:
-      plantPattern = routine_plant_plan_execute(rows, columns, plantPattern, Entities.Cactus)
-      cactus -= 1
     elif sunflower > 0:
       newPlantPattern, sunflowersPosition = routine_lookup_place_sunflower(rows, columns, plantPattern, sunflower)
       plantPattern = newPlantPattern
@@ -56,7 +65,7 @@ def routine_plant_pattern(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=
     if positionFilled == spaces:
       allSpacesFilled = True
 
-  return plantPattern, sunflowersPosition, seedsCarrot, seedsPumpkin, seedsSunflower
+  return plantPattern, sunflowersPosition, cactusPosition, cactusCompass, seedsCarrot, seedsPumpkin, seedsSunflower, seedsCactus
 
 def routine_prepare_soil(plantPattern):
   rows = len(plantPattern)

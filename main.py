@@ -6,4 +6,11 @@ rows = size
 cols = size
 
 while willStop == False:
-	willStop = culture_poly(rows, cols, 7, 7, 20, 20, 10, 14, 0)
+	grass = 0
+	bush = 0
+	carrot = 16
+	pumpkin = 18
+	tree = 9
+	sunflower = 12
+	cactus = 5
+	willStop = culture_poly(rows, cols, grass, bush, carrot, pumpkin, tree, sunflower, cactus)

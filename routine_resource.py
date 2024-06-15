@@ -5,6 +5,13 @@ def routine_get_carrot_seed(minQuantity=4, buyAmount=4):
 		else:
 			pass
 
+def routine_get_cactus_seed(minQuantity=4, buyAmount=4):
+	if num_items(Items.Carrot_Seed) <= minQuantity:
+		if num_items(Items.Gold) >= buyAmount * 9:
+			trade(Items.Cactus_Seed, buyAmount)
+		else:
+			pass
+
 def routine_get_pumpkin_seed(minQuantity=4, buyAmount=4):
 	if num_items(Items.Pumpkin_Seed) <= minQuantity:
 		if num_items(Items.Carrot) >= buyAmount:

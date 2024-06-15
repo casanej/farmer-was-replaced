@@ -3,7 +3,7 @@ def routine_harvest_execute(block = True):
   if block:
     plant = get_entity_type()
 
-    if(plant == Entities.Sunflower):
+    if(plant == Entities.Sunflower or plant == Entities.Cactus):
       return
 
   routine_plant_watering()
@@ -12,7 +12,7 @@ def routine_harvest_execute(block = True):
     harvest()
 
 def routine_soil_execute(entity = Entities.Grass):
-  if (entity == Entities.Bush or entity == Entities.Tree or entity == Entities.Pumpkin or entity == Entities.Carrots or entity == Entities.Sunflower):
+  if (entity != Entities.Grass):
     if get_ground_type() == Grounds.Turf:
       till()
 

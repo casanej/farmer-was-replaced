@@ -1,4 +1,4 @@
-from drone_functions import check_possible_directions, inverse_direction, current_position
+from drone_functions import inverse_direction
 
 
 def create_default_tile(id, backDirection, lastTile, isStart=False):
@@ -62,6 +62,3 @@ def maze_solver():
 		isTreasure = get_entity_type() == Entities.Treasure
 
 	harvest()
-
-
-maze_solver()
