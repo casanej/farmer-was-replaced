@@ -1,4 +1,5 @@
 from culture_poly import culture_poly
+from culture_treasure import culture_treasure
 
 willStop = False
 size = get_world_size()
