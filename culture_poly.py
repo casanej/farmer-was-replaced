@@ -19,10 +19,10 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 
 	while True:
 		go_to_position(0, 0)
-		routine_get_carrot_seed(seedsCarrot, seedsCarrot)
-		routine_get_pumpkin_seed(seedsPumpkin, seedsPumpkin)
-		routine_get_cactus_seed(seedsCactus, seedsCactus)
-		routine_get_sunflower(seedsSunflower, seedsSunflower)
+		routine_get_carrot_seed(seedsCarrot, seedsCarrot * 2)
+		routine_get_pumpkin_seed(seedsPumpkin, seedsPumpkin * 2)
+		routine_get_cactus_seed(seedsCactus, seedsCactus * 2)
+		routine_get_sunflower(seedsSunflower, seedsSunflower * 2)
 		routine_get_tank(totalSpaces, totalSpaces)
 		for x in range(rows):
 			for y in range(columns):

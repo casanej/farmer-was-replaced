@@ -25,11 +25,10 @@ def routine_plant_pattern(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=
   seedsSunflower = max(0, sunflower)
   seedsCactus = max(0, cactus)
 
+  totalSpaces = rows * columns
+
   plantPattern = []
   sunflowersPosition = []
-  positionFilled = 0
-
-  allSpacesFilled = False
 
   for y in range(columns):
     plantRow = []
@@ -37,35 +36,15 @@ def routine_plant_pattern(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=
       plantRow.append(None)
     plantPattern.append(plantRow)
 
-  while not allSpacesFilled:
-    if pumpkin > 0:
-      plantPattern = routine_lookup_place_pumpkin(rows, columns, plantPattern, pumpkin)
-      pumpkin -= pumpkin
-    elif cactus > 0:
-      newPlantPattern, cactusPosition, cactusCompass = routine_lookup_place_cactus(rows, columns, plantPattern, cactus)
-      plantPattern = newPlantPattern
-      cactus -= cactus
-    elif tree > 0:
-      newPlantPattern = routine_lookup_place_tree(rows, columns, plantPattern, tree)
-      plantPattern = newPlantPattern
-      tree -= tree
-    elif bush > 0:
-      plantPattern = routine_plant_plant_execute(rows, columns, plantPattern, Entities.Bush)
-      bush -= 1
-    elif carrot > 0:
-      plantPattern = routine_plant_plant_execute(rows, columns, plantPattern, Entities.Carrots)
-      carrot -= 1
-    elif sunflower > 0:
-      newPlantPattern, sunflowersPosition = routine_lookup_place_sunflower(rows, columns, plantPattern, sunflower)
-      plantPattern = newPlantPattern
-      sunflower -= sunflower
-    else:
-      plantPattern = routine_plant_plant_execute(rows, columns, plantPattern, Entities.Grass)
 
-    positionFilled += 1
+  plantPattern = routine_lookup_place_pumpkin(rows, columns, plantPattern, pumpkin)
+  plantPattern, cactusPosition, cactusCompass = routine_lookup_place_cactus(rows, columns, plantPattern, cactus)
+  plantPattern = routine_lookup_place_tree(rows, columns, plantPattern, tree)
+  plantPattern, sunflowersPosition = routine_lookup_place_sunflower(rows, columns, plantPattern, sunflower)
 
-    if positionFilled == spaces:
-      allSpacesFilled = True
+  totalGrass = grass + (totalSpaces - (pumpkin + tree + sunflower + cactus))
+
+  plantPattern = routine_plant_plant_execute(rows, columns, plantPattern, totalGrass, bush, carrot)
 
   return plantPattern, sunflowersPosition, cactusPosition, cactusCompass, seedsCarrot, seedsPumpkin, seedsSunflower, seedsCactus
 

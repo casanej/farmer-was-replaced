@@ -60,10 +60,18 @@ def routine_plant_find_available_position(cols, rows, plantPattern):
 
   return bestPositionY, bestPositionX
 
-def routine_plant_plant_execute(cols, rows, plantPattern, entity):
-  bestPositionY, bestPositionX = routine_plant_find_available_position(cols, rows, plantPattern)
-
-  if (bestPositionY >= 0 and bestPositionX >= 0):
-    plantPattern[bestPositionY][bestPositionX] = entity
+def routine_plant_plant_execute(cols, rows, plantPattern, grass, bush, carrot):
+  for y in range(cols):
+    for x in range(rows):
+      if plantPattern[y][x] == None:
+        if bush > 0:
+          plantPattern[y][x] = Entities.Bush
+          bush -= 1
+        elif carrot > 0:
+          plantPattern[y][x] = Entities.Carrots
+          carrot -= 1
+        elif grass > 0:
+          plantPattern[y][x] = Entities.Grass
+          grass -= 1
 
   return plantPattern
