@@ -2,6 +2,9 @@ from drone_functions import go_to_position, go_to_position_swapping
 from routine_resource import routine_get_cactus_seed
 
 def routine_lookup_place_cactus(rows, cols, plantPattern, quantity):
+  if quantity == 0:
+    return plantPattern, [], {}
+
   centerX = 0
   centerY = cols - 2
 

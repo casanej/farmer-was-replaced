@@ -40,11 +40,12 @@ def routine_plant_pattern(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=
   plantPattern = routine_lookup_place_pumpkin(rows, columns, plantPattern, pumpkin)
   plantPattern, cactusPosition, cactusCompass = routine_lookup_place_cactus(rows, columns, plantPattern, cactus)
   plantPattern = routine_lookup_place_tree(rows, columns, plantPattern, tree)
+  plantPattern = routine_plant_plant_execute(rows, columns, plantPattern, 0, bush, carrot)
   plantPattern, sunflowersPosition = routine_lookup_place_sunflower(rows, columns, plantPattern, sunflower)
 
   totalGrass = grass + (totalSpaces - (pumpkin + tree + sunflower + cactus))
 
-  plantPattern = routine_plant_plant_execute(rows, columns, plantPattern, totalGrass, bush, carrot)
+  plantPattern = routine_plant_plant_execute(rows, columns, plantPattern, totalGrass, 0, 0)
 
   return plantPattern, sunflowersPosition, cactusPosition, cactusCompass, seedsCarrot, seedsPumpkin, seedsSunflower, seedsCactus
 

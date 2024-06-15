@@ -15,6 +15,10 @@ def routine_soil_execute(entity = Entities.Grass):
   if (entity != Entities.Grass):
     if get_ground_type() == Grounds.Turf:
       till()
+  else:
+    if get_ground_type() == Grounds.Soil:
+      till()
+
 
 def routine_plant_execute(entity = Entities.Grass):
   canPlant = False
