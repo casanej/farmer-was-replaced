@@ -5,8 +5,8 @@ def routine_lookup_place_cactus(plantPattern, quantity):
   if quantity == 0:
     return plantPattern, [], {}
 
-  centerX = 2
   centerY = 6
+  centerX = 2
 
   cactusPositions = []
   cactusCompassPosition = {
@@ -104,22 +104,13 @@ def swap_cactus_to_position(desiredCactusPosition, orderPosition):
   orderY, orderX = orderPosition["y"], orderPosition["x"]
   go_to_position(indexY, indexX)
 
-  size = get_world_size()
-  rows = size
-  cols = size
-
-  centerX = 0
-
-  if cols % 2 == 0:
-    centerX = rows / 2
-  else:
-    centerX = (rows - 1) / 2
-
   droneY = get_pos_y()
   droneX = get_pos_x()
 
   if droneY == orderY and droneX == orderX:
     return True
+
+  centerX = 2
 
   droneY = get_pos_y()
   go_to_position_swapping(droneY, centerX)

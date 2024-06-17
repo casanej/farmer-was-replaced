@@ -3,7 +3,6 @@ from routine_resource import routine_get_fertilizer
 from maze_solver import maze_solver
 
 def culture_treasure():
-  clear()
   while True:
     routine_get_fertilizer(100, 100)
     plant(Entities.Bush)

@@ -23,11 +23,9 @@ def routine_plant_pattern(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=
       print("Error: Dinosaur quantity must be the same as the number of rows.")
       return [], [], [], {}, 0, 0, 0, 0, 0
 
-    divisorGrass = rows - 1
+    divisorGrass = dinosaur
 
   totalEntities = grass + bush + carrot + pumpkin + tree + sunflower + cactus + dinosaur + divisorGrass
-
-  quick_print("Total entities: ", totalEntities)
 
   if totalEntities > spaces:
     print("Error: Not enough spaces for the plants.")
@@ -54,7 +52,6 @@ def routine_plant_pattern(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=
 
   dinosaurCol = columns - 1
   remainingGrass = totalSpaces - totalEntities
-  quick_print("Remaining grass: ", grass, bush, carrot, pumpkin, tree, sunflower, cactus, dinosaur)
 
   plantPattern = routine_lookup_place_dinosaur(dinosaurCol, rows, plantPattern, dinosaur)
   plantPattern = routine_lookup_place_pumpkin(rows, columns, plantPattern, pumpkin)

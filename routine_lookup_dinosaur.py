@@ -22,8 +22,6 @@ def routine_lookup_stop_dinosaur(col, rows):
     go_to_position(col, x)
     measures.append(measure())
 
-  quick_print("Measures: ", measures)
-
 def routine_lookup_rearrange_group(col, rows):
   if num_items(Items.Egg) <= rows - 1:
     return
@@ -47,8 +45,6 @@ def routine_lookup_rearrange_group(col, rows):
         currentIndex = x
         break
 
-    routine_lookup_stop_dinosaur(col, rows)
-
     if currentIndex == -1:
       lookingSize -= 1
     else:
@@ -61,4 +57,7 @@ def routine_lookup_rearrange_group(col, rows):
   for x in range(rows):
     go_to_position(col, x)
     harvest()
+
+  for x in range(rows):
+    go_to_position(col, x)
     use_item(Items.Egg)

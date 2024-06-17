@@ -65,6 +65,9 @@ def routine_plant_find_available_position(cols, rows, plantPattern):
   return bestPositionY, bestPositionX
 
 def routine_plant_plant_execute(cols, rows, plantPattern, grass, bush, carrot):
+  if grass == 0 and bush == 0 and carrot == 0:
+    return plantPattern
+
   for y in range(cols):
     for x in range(rows):
       if plantPattern[y][x] == None:

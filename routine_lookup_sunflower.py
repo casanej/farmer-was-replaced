@@ -9,7 +9,6 @@ def routine_lookup_place_sunflower(rows, cols, plantPattern, quantity):
 
   while quantity > 0:
     bestPositionY, bestPositionX = routine_plant_find_available_position(cols, rows, plantPattern)
-    quick_print("Quantity: ", quantity)
 
     if (bestPositionY >= 0 and bestPositionX >= 0):
       plantPattern[bestPositionY][bestPositionX] = Entities.Sunflower

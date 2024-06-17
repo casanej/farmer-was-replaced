@@ -43,11 +43,11 @@ def routine_get_tank(minQuantity=100, buyAmount=5):
 def routine_get_eggs(minQuantity=100, buyAmount=5):
 	tradeCost = 60
 	totalCost = tradeCost * buyAmount
-	if num_items(Items.Pumpkin_Seed) >= totalCost:
+	if num_items(Items.Cactus) >= totalCost:
 		if num_items(Items.Egg) <= minQuantity:
 			trade(Items.Egg, buyAmount)
 	else:
-		quick_print("ERROR: Not enough Cactus to trade for eggs")
+		quick_print("ERROR: Not enough Cactus (", totalCost, ") to trade for eggs (", buyAmount, ")")
 
 def routine_get_fertilizer(minQuantity=100, buyAmount=5):
 	tradeCost = 10

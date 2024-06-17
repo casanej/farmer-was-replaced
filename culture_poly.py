@@ -42,8 +42,9 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 			move(East)
 
 		routine_lookup_rearrange_group(dinosaurCol, rows)
-		routine_lookup_harvest_cactus(cactusPosition, cactusCompass)
 		routine_lookup_harvest_sunflower(sunflowersPosition)
-		routine_lookup_harvest_cactus(cactusPosition, cactusCompass)
-
+		repeatCactus = 20
+		while repeatCactus > 0:
+			repeatCactus -= 1
+			routine_lookup_harvest_cactus(cactusPosition, cactusCompass)
 
