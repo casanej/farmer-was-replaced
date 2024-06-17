@@ -3,7 +3,7 @@ def routine_harvest_execute(block = True):
   if block:
     plant = get_entity_type()
 
-    if(plant == Entities.Sunflower or plant == Entities.Cactus):
+    if(plant == Entities.Sunflower or plant == Entities.Cactus or plant == Entities.Dinosaur):
       return
 
   routine_plant_watering()
@@ -12,11 +12,11 @@ def routine_harvest_execute(block = True):
     harvest()
 
 def routine_soil_execute(entity = Entities.Grass):
-  if (entity != Entities.Grass):
-    if get_ground_type() == Grounds.Turf:
+  if (entity == Entities.Grass or entity == Items.Egg):
+    if get_ground_type() == Grounds.Soil:
       till()
   else:
-    if get_ground_type() == Grounds.Soil:
+    if get_ground_type() == Grounds.Turf:
       till()
 
 
@@ -31,7 +31,9 @@ def routine_plant_execute(entity = Entities.Grass):
       canPlant = False
       print("Cannot plant on this ground type")
 
-  if canPlant:
+  if (entity == Items.Egg):
+    use_item(Items.Egg)
+  elif canPlant:
     plant(entity)
 
 def routine_plant_watering():
@@ -49,17 +51,15 @@ def routine_plant_fertilize():
 def routine_plant_find_available_position(cols, rows, plantPattern):
   bestPositionX = -1
   bestPositionY = -1
-  hasFoundBestPosition = False
 
-  for initialBestY in range(cols):
-    for initialBestX in range(rows):
-      if plantPattern[initialBestY][initialBestX] == None:
-        bestPositionX = initialBestX
-        bestPositionY = initialBestY
-        hasFoundBestPosition = True
+  for y in range(cols):
+    for x in range(rows):
+      if plantPattern[y][x] == None:
+        bestPositionX = x
+        bestPositionY = y
         break
 
-    if hasFoundBestPosition:
+    if bestPositionX != -1:
       break
 
   return bestPositionY, bestPositionX

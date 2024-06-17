@@ -1,17 +1,12 @@
 from drone_functions import go_to_position, go_to_position_swapping
 from routine_resource import routine_get_cactus_seed
 
-def routine_lookup_place_cactus(rows, cols, plantPattern, quantity):
+def routine_lookup_place_cactus(plantPattern, quantity):
   if quantity == 0:
     return plantPattern, [], {}
 
-  centerX = 0
-  centerY = cols - 2
-
-  if cols % 2 == 0:
-    centerX = rows / 2
-  else:
-    centerX = (rows - 1) / 2
+  centerX = 2
+  centerY = 6
 
   cactusPositions = []
   cactusCompassPosition = {
@@ -36,6 +31,9 @@ def routine_lookup_place_cactus(rows, cols, plantPattern, quantity):
   return plantPattern, cactusPositions, cactusCompassPosition
 
 def routine_lookup_harvest_cactus(cactusPositions, cactusCompass):
+  if num_items(Items.Cactus_Seed) < len(cactusPositions):
+    return False
+
   if len(cactusPositions) == 0:
     return False
 

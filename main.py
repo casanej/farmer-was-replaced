@@ -10,8 +10,9 @@ while willStop == False:
 	grass = 0
 	bush = 0
 	carrot = 20
-	pumpkin = 24
-	tree = 10
-	sunflower = 32
+	pumpkin = 22
+	tree = 9
+	sunflower = 24
 	cactus = 5
-	willStop = culture_poly(rows, cols, grass, bush, carrot, pumpkin, tree, sunflower, cactus)
+	dinosaur = size
+	willStop = culture_poly(rows, cols, grass, bush, carrot, pumpkin, tree, sunflower, cactus, dinosaur)
