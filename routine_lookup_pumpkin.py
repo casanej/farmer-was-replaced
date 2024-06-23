@@ -1,4 +1,5 @@
 from drone_functions import go_to_position
+from routine_plant import routine_plant_watering
 
 def routine_lookup_place_pumpkin(rows, cols, plantPattern, quantity):
   pumpkinsSquareLocation = []
@@ -17,20 +18,31 @@ def routine_lookup_place_pumpkin(rows, cols, plantPattern, quantity):
   return plantPattern, pumpkinsSquareLocation
 
 def routine_lookup_pumpkin_harvest(pumpkinsSquareLocation):
-  quick_print("Harvesting pumpkins", len(pumpkinsSquareLocation))
-  pumpkinsMissed = -1
+  pumpkinsMissed = []
 
-  while pumpkinsMissed != 0:
-    pumpkinsMissed = 0
+  for location in pumpkinsSquareLocation:
+    y, x = location
+    go_to_position(x, y)
+    routine_plant_watering()
 
-    for location in pumpkinsSquareLocation:
+    if get_entity_type() != Entities.Pumpkin:
+      pumpkinsMissed.append(location)
+      plant(Entities.Pumpkin)
+
+  while len(pumpkinsMissed) != 0:
+    pumpkinsMissedCheck = []
+
+    for location in pumpkinsMissed:
       y, x = location
       go_to_position(x, y)
 
       if get_entity_type() != Entities.Pumpkin:
-        pumpkinsMissed += 1
+        pumpkinsMissedCheck.append(location)
+        use_item(Items.Water_Tank)
         plant(Entities.Pumpkin)
+        use_item(Items.Fertilizer)
 
+    pumpkinsMissed = pumpkinsMissedCheck
 
   go_to_position(0, 0)
   harvest()
