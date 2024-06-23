@@ -1,6 +1,7 @@
 from routine_lookup_tree import routine_lookup_place_tree
 from routine_lookup_place import routine_lookup_place_pumpkin
 from routine_lookup_cactus import routine_lookup_place_cactus
+from routine_lookup_pumpkin import lookup_pumpkin_harvest
 from routine_lookup_dinosaur import routine_lookup_place_dinosaur
 from routine_lookup_sunflower import routine_lookup_place_sunflower
 from routine_plant import routine_plant_plant_execute, routine_soil_execute, routine_plant_watering
@@ -43,6 +44,7 @@ def routine_plant_pattern(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=
 
   plantPattern = []
   sunflowersPosition = []
+  pumpkinsSquareLocation = []
 
   for y in range(columns):
     plantRow = []
@@ -54,7 +56,7 @@ def routine_plant_pattern(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=
   remainingGrass = totalSpaces - totalEntities
 
   plantPattern = routine_lookup_place_dinosaur(dinosaurCol, rows, plantPattern, dinosaur)
-  plantPattern = routine_lookup_place_pumpkin(rows, columns, plantPattern, pumpkin)
+  plantPattern, pumpkinsSquareLocation = routine_lookup_place_pumpkin(rows, columns, plantPattern, pumpkin)
   plantPattern, cactusPosition, cactusCompass = routine_lookup_place_cactus(plantPattern, cactus)
   plantPattern = routine_lookup_place_tree(rows, columns, plantPattern, tree)
   plantPattern = routine_plant_plant_execute(rows, columns, plantPattern, 0, bush, carrot)
@@ -62,7 +64,7 @@ def routine_plant_pattern(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=
   plantPattern = routine_plant_plant_execute(rows, columns, plantPattern, grass, 0, 0)
   plantPattern = routine_plant_plant_execute(rows, columns, plantPattern, remainingGrass, 0, 0)
 
-  return plantPattern, sunflowersPosition, cactusPosition, cactusCompass, seedsCarrot, seedsPumpkin, seedsSunflower, seedsCactus, dinosaurEggs
+  return plantPattern, pumpkinsSquareLocation, sunflowersPosition, cactusPosition, cactusCompass, seedsCarrot, seedsPumpkin, seedsSunflower, seedsCactus, dinosaurEggs
 
 def routine_prepare_soil(plantPattern):
   rows = len(plantPattern)

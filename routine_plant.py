@@ -3,7 +3,7 @@ def routine_harvest_execute(block = True):
   if block:
     plant = get_entity_type()
 
-    if(plant == Entities.Sunflower or plant == Entities.Cactus or plant == Entities.Dinosaur):
+    if(plant == Entities.Sunflower or plant == Entities.Cactus or plant == Entities.Dinosaur or plant == Entities.Pumpkin):
       return
 
   routine_plant_watering()

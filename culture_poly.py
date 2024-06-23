@@ -2,6 +2,7 @@ from drone_functions import go_to_position
 from routine_plant import routine_harvest_execute, routine_plant_execute
 from routine_resource import routine_get_carrot_seed, routine_get_pumpkin_seed, routine_get_tank, routine_get_sunflower, routine_get_cactus_seed, routine_get_eggs
 from routine_lookup_cactus import routine_lookup_harvest_cactus
+from routine_lookup_pumpkin import routine_lookup_pumpkin_harvest
 from routine_lookup_dinosaur import routine_lookup_rearrange_group
 from routine_lookup_sunflower import routine_lookup_harvest_sunflower
 from routine_preparation_plant import routine_plant_pattern, routine_prepare_soil
@@ -13,7 +14,7 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 
 	totalSpaces = rows * columns
 
-	plantPattern, sunflowersPosition, cactusPosition, cactusCompass, seedsCarrot, seedsPumpkin, seedsSunflower, seedsCactus, dinosaurEggs = routine_plant_pattern(rows, columns, grass, bush, carrot, pumpkin, tree, sunflower, cactus, dinosaur)
+	plantPattern, pumpkinsSquareLocation, sunflowersPosition, cactusPosition, cactusCompass, seedsCarrot, seedsPumpkin, seedsSunflower, seedsCactus, dinosaurEggs = routine_plant_pattern(rows, columns, grass, bush, carrot, pumpkin, tree, sunflower, cactus, dinosaur)
 
 	dinosaurCol = columns - 1
 
@@ -43,6 +44,7 @@ def culture_poly(rows=1, columns=1, grass=0, bush=0, carrot=0, pumpkin=0, tree =
 
 		routine_lookup_rearrange_group(dinosaurCol, rows)
 		routine_lookup_harvest_sunflower(sunflowersPosition)
+		routine_lookup_pumpkin_harvest(pumpkinsSquareLocation)
 		repeatCactus = 20
 		while repeatCactus > 0:
 			repeatCactus -= 1

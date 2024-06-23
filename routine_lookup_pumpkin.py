@@ -1,65 +1,38 @@
+from drone_functions import go_to_position
+
 def routine_lookup_place_pumpkin(rows, cols, plantPattern, quantity):
-  restPumpkin = quantity
+  pumpkinsSquareLocation = []
+  squareSize = 0
 
-  while restPumpkin >= 4:
-    pumpkinSquare = 0
-    for y in range(cols):
-      if (y == 0 or y == 1):
-        continue
-
-      if (y * y) > restPumpkin:
-        break
-
-      pumpkinSquare = y
-
-    restPumpkin -= pumpkinSquare * pumpkinSquare
-
-    plantPattern = lookup_pumpkin_search_square(plantPattern, cols, rows, pumpkinSquare)
-
-  plantPattern = lookup_pumpkin_add_anywhere(plantPattern, cols, rows, restPumpkin)
-
-  return plantPattern
-
-def lookup_pumpkin_search_square(plantPattern, cols, rows, squareSize):
-  posSquareXAvailable = -1
-  posSquareYAvailable = -1
-  wasFound = False
-
-  for y in range(cols):
-    for x in range(rows):
-      if plantPattern[y][x] == None:
-        if x + squareSize > rows or y + squareSize > cols:
-          continue
-
-        posSquareXAvailable = x
-        posSquareYAvailable = y
-        wasFound = True
-        break
-
-    if wasFound:
-      break
-
-  if posSquareXAvailable == -1:
-    return lookup_pumpkin_add_anywhere(plantPattern, cols, rows, squareSize * squareSize)
+  for y in range(1, cols + 1):
+    squareQuantity = y * y
+    if squareQuantity <= quantity:
+      squareSize = y
 
   for y in range(squareSize):
     for x in range(squareSize):
-      plantPattern[y + posSquareYAvailable][x + posSquareXAvailable] = Entities.Pumpkin
+      plantPattern[y][x] = Entities.Pumpkin
+      pumpkinsSquareLocation.append([y, x])
 
-  return plantPattern
+  return plantPattern, pumpkinsSquareLocation
 
-def lookup_pumpkin_add_anywhere(plantPattern, cols, rows, quantity):
-  for y in range(cols):
-    if quantity == 0:
-      break
-    for x in range(rows):
-      if quantity == 0:
-        break
+def routine_lookup_pumpkin_harvest(pumpkinsSquareLocation):
+  quick_print("Harvesting pumpkins", len(pumpkinsSquareLocation))
+  pumpkinsMissed = -1
 
-      canPlace = plantPattern[y][x] == None
+  while pumpkinsMissed != 0:
+    pumpkinsMissed = 0
 
-      if canPlace:
-        plantPattern[y][x] = Entities.Pumpkin
-        quantity -= 1
+    for location in pumpkinsSquareLocation:
+      y, x = location
+      go_to_position(x, y)
 
-  return plantPattern
+      if get_entity_type() != Entities.Pumpkin:
+        pumpkinsMissed += 1
+        plant(Entities.Pumpkin)
+
+
+  go_to_position(0, 0)
+  harvest()
+
+  return True
